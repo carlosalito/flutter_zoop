@@ -538,7 +538,10 @@ public class FlutterzoopPlugin implements FlutterPlugin, ActivityAware, MethodCa
       result.success(null);
 
     } catch (Exception e) {
-      result.error("startScan", e.getMessage(), e);
+      Log.d(TAG, "startScan error " + e.getMessage());  
+      result.success(null);
+
+      //result.error("startScan", e.getMessage(), e);
     }
   }
 
