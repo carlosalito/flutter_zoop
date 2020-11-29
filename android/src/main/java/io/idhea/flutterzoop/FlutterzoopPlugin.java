@@ -474,7 +474,7 @@ public class FlutterzoopPlugin implements FlutterPlugin, ActivityAware, MethodCa
   @Override
   public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
     if (requestCode == REQUEST_FINE_LOCATION_PERMISSIONS) {
-      if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+      if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {        
         startScan(pendingCall, pendingResult);
       } else {
         pendingResult.error("no_permissions", "flutter_blue plugin requires location permissions for scanning", null);
