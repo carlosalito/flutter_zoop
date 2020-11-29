@@ -479,7 +479,6 @@ public class FlutterzoopPlugin implements FlutterPlugin, ActivityAware, MethodCa
         } catch (Exception e) {
             Log.d(TAG, "onRequestPermissionsResult error " + e.getMessage());  
         }
-
       } else {
         pendingResult.error("no_permissions", "flutter_blue plugin requires location permissions for scanning", null);
         pendingResult = null;
