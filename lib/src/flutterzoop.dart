@@ -17,12 +17,22 @@ class FlutterZoop {
 
   BehaviorSubject<ZoopPayment> _paymentMessage =
       new BehaviorSubject.seeded(null);
-  Stream<ZoopPayment> get paymentResult => _paymentMessage.stream;
+  Stream<ZoopPayment> get paymentResult =>
+      _paymentMessage.stream.distinct(checkPaymentResponse);
 
   BehaviorSubject<bool> _paymentAbort = new BehaviorSubject.seeded(false);
   Stream<bool> get paymentAbort => _paymentAbort.stream;
 
   BehaviorSubject<bool> isCharging = BehaviorSubject.seeded(false);
+
+  bool checkPaymentResponse(ZoopPayment p, ZoopPayment n) {
+    print("check distinct ==== (${p?.id},${n?.id})");
+    if (p != null && n != null) {
+      return p.id == n.id;
+    } else if (p == null && n != null) {}
+
+    return false;
+  }
 
   final MethodChannel _channel = const MethodChannel('$NAMESPACE/methods');
   final EventChannel _stateChannel = const EventChannel('$NAMESPACE/state');
@@ -191,6 +201,22 @@ class FlutterZoop {
     }
   }
 
+  Future<bool> abortCharge() async {
+    try {
+      await _channel.invokeMethod('abortCharge');
+      isCharging.add(false);
+      _errorMessage.add(null);
+      _terminalMessage.add(null);
+      _paymentMessage.add(null);
+      _paymentAbort.add(null);
+      return Future.value(true);
+    } catch (e) {
+      isCharging.add(false);
+      print('ERROR requestConnection ${e.toString()}');
+      throw Exception(e);
+    }
+  }
+
   void proccessMessages(String arguments) {
     final args = jsonDecode(arguments);
     _terminalMessage.add(ZoopTerminalMessage.fromJson(args));
@@ -209,6 +235,7 @@ class FlutterZoop {
     _errorMessage.add(null);
     _terminalMessage.add(null);
     _paymentMessage.add(ZoopPayment.fromJson(args));
+    _paymentMessage.add(null);
   }
 
   void proccessPaymentAborted() {

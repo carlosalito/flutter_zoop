@@ -34,10 +34,18 @@ class ScanResultTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         _buildTitle(context),
+        RaisedButton(
+          child: Text('CONNECT'),
+          color: Colors.black,
+          textColor: Colors.white,
+          onPressed: () {
+            requestConn();
+          },
+        ),
         RaisedButton(
           child: Text('CREDIT CHARGE'),
           color: Colors.black,
@@ -55,11 +63,11 @@ class ScanResultTile extends StatelessWidget {
           },
         ),
         RaisedButton(
-          child: Text('CONNECT'),
+          child: Text('ABORT'),
           color: Colors.black,
           textColor: Colors.white,
           onPressed: () {
-            requestConn();
+            abortCharge();
           },
         ),
       ],
@@ -70,7 +78,7 @@ class ScanResultTile extends StatelessWidget {
     FlutterZoop.instance.requestConnection(device);
   }
 
-  charge(int paymentOption) async {
+  void charge(int paymentOption) async {
     final charge = ZoopCharge(
         iNumberOfInstallments: 1,
         marketplaceId: '',
@@ -79,6 +87,10 @@ class ScanResultTile extends StatelessWidget {
         sellerId: '',
         valueToCharge: 0.10);
     FlutterZoop.instance.charge(charge);
+  }
+
+  void abortCharge() {
+    FlutterZoop.instance.abortCharge();
   }
 }
 
