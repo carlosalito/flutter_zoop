@@ -395,8 +395,7 @@ public class FlutterzoopPlugin implements FlutterPlugin, ActivityAware, MethodCa
 
       case "requestConnection": {
         String data = call.arguments();
-        try {
-          System.out.println("CHEGOU " + data);
+        try {          
           JSONObject obj = new JSONObject(data);
           requestZoopDeviceSelection(obj);
           result.success(true);
@@ -475,7 +474,12 @@ public class FlutterzoopPlugin implements FlutterPlugin, ActivityAware, MethodCa
   public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
     if (requestCode == REQUEST_FINE_LOCATION_PERMISSIONS) {
       if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {        
-        startScan(pendingCall, pendingResult);
+        try {
+          startScan(pendingCall, pendingResult);
+        } catch (Exception e) {
+            Log.d(TAG, "onRequestPermissionsResult error " + e.getMessage());  
+        }
+
       } else {
         pendingResult.error("no_permissions", "flutter_blue plugin requires location permissions for scanning", null);
         pendingResult = null;
