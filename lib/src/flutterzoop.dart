@@ -1,4 +1,4 @@
-// Copyright 2020, Carlos Alito.
+// Copyright 2020, RTec Aplicativos
 
 part of flutter_zoop;
 
