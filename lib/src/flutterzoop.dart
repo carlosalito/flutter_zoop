@@ -11,8 +11,8 @@ class FlutterZoop {
       new BehaviorSubject<ZoopTerminalMessage>.seeded(null);
   Stream<ZoopTerminalMessage> get terminalMessage => _terminalMessage.stream;
 
-  BehaviorSubject<ZoopErrorMessage> _errorMessage =
-      new BehaviorSubject<ZoopErrorMessage>.seeded(null);
+  StreamController<ZoopErrorMessage> _errorMessage =
+      StreamController<ZoopErrorMessage>.broadcast();
   Stream<ZoopErrorMessage> get errorMessage => _errorMessage.stream;
 
   BehaviorSubject<ZoopPayment> _paymentMessage =
