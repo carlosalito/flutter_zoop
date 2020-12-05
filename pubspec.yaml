@@ -1,6 +1,6 @@
 name: flutterzoop
 description: A Flutter Zoop plugin.
-version: 0.0.16
+version: 0.0.18
 homepage: https://github.com/reynaldots/flutter_zoop
 
 environment:

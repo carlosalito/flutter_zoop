@@ -7,20 +7,19 @@ class FlutterZoop {
       new BehaviorSubject.seeded([]);
   Stream<List<ZoopDevice>> get zoopDevices => _zoopDevices.stream;
 
-  BehaviorSubject<ZoopTerminalMessage> _terminalMessage =
-      new BehaviorSubject<ZoopTerminalMessage>.seeded(null);
+  StreamController<ZoopTerminalMessage> _terminalMessage =
+      StreamController<ZoopTerminalMessage>.broadcast();
   Stream<ZoopTerminalMessage> get terminalMessage => _terminalMessage.stream;
 
   StreamController<ZoopErrorMessage> _errorMessage =
       StreamController<ZoopErrorMessage>.broadcast();
   Stream<ZoopErrorMessage> get errorMessage => _errorMessage.stream;
 
-  BehaviorSubject<ZoopPayment> _paymentMessage =
-      new BehaviorSubject.seeded(null);
+  StreamController<ZoopPayment> _paymentMessage = StreamController.broadcast();
   Stream<ZoopPayment> get paymentResult =>
       _paymentMessage.stream.distinct(checkPaymentResponse);
 
-  BehaviorSubject<bool> _paymentAbort = new BehaviorSubject.seeded(false);
+  StreamController<bool> _paymentAbort = StreamController.broadcast();
   Stream<bool> get paymentAbort => _paymentAbort.stream;
 
   BehaviorSubject<bool> isCharging = BehaviorSubject.seeded(false);
