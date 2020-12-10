@@ -43,6 +43,9 @@ class FlutterZoop {
   /// Singleton boilerplate
   FlutterZoop._() {
     _channel.setMethodCallHandler((MethodCall call) {
+      // Gravando dados do Pinpad localmente
+      FlutterzoopUtils().savePinpadHistoryData(call.arguments);
+
       print('call.method ${call.method == "Devices"}');
       switch (call.method) {
         case 'Devices':

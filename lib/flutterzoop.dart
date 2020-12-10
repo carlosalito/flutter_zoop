@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:flutterzoop/src/flutterzoop_utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'gen/flutterzoop.pb.dart' as protos;
